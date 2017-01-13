@@ -12,9 +12,15 @@ npm install -g simple-mock-http-server
 simple-mock-http-server -o -p 8080 -r mock-routes
 ```
 
-## Route file (route files is the same as in Express lib see: http://expressjs.com/en/guide/routing.html)
+## Route files
 
+Route files spec are the same as in Express lib see:
+http://expressjs.com/en/guide/routing.html)
+
+```path
 ./mock-routes/routes_1.js
+```
+
 ```js
 module.exports = (app) => {
     app.get('/users', (req, res) => {
