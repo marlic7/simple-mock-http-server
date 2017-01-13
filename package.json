@@ -1,0 +1,30 @@
+{
+  "name": "simple-mock-http-server",
+  "version": "1.0.0",
+  "description": "Simple HTTP server with posibility to mock API (http and socket.io) and automatic reload routes on change route file",
+  "main": "./lib/simple-mock-http-server.js",
+  "bin": {
+    "simple-mock-http-server": "./bin/simple-mock-http-server"
+  },
+  "scripts": {
+    "test": "./bin/simple-mock-http-server ./test -r ./test/mock-routes -o",
+    "start-debug": "devtool ./bin/simple-mock-http-server ./test -r ./test/mock-routes -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marlic7/simple-mock-http-server.git"
+  },
+  "author": "Mariusz Lichota",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
+    "express": "^4.14.0",
+    "express-remove-route": "^0.1.1",
+    "minimist": "^1.2.0",
+    "opener": "^1.4.1",
+    "require-reload": "^0.2.2",
+    "socket.io": "^1.4.8",
+    "watch": "^1.0.1"
+  }
+}

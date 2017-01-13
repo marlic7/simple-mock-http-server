@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html manifest="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+</head>
+<body>
+    <p>
+        hello man
+    </p>
+    <img src="ok.png"> <img src="not-ok.png">
+    <script type="text/javascript">
+        var sio = io('http://localhost:8080');
+        sio.on('processing', function (data) {
+            console.log("jest processing: ", data);
+        });
+    </script>
+</body>

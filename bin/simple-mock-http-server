@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+
+'use strict';
+
+require('colors');
+
+const argv = require('minimist')(process.argv.slice(2)),
+    httpServer = require('../lib/simple-mock-http-server.js'),
+    opener     = require('opener');
+
+if (argv.h || argv.help) {
+    /*eslint-disable*/
+    console.log([
+        'usage: simple-mock-http-server [path] [options]',
+        '',
+        'options:',
+        '  -p           Port to use [default is 8080]',
+        '  -o [url]     Open browser window after starting the server',
+        '  -r [path]    Path to dir containing mock routes [default is mock-routes]',
+        '  -s --silent  Suppress log messages from output',
+        '  -h --help    Print this list and exit.'
+    ].join('\n'));
+    /*eslint-enable*/
+    process.exit();
+}
+
+let port = argv.p || parseInt(process.env.PORT, 10) || 8080,
+    pwd  = process.cwd(),
+    dir = pwd + '/' + (argv._[0] ? argv._[0] : ''),
+    mockRoutes = pwd + '/' + (argv.r || 'mock-routes'),
+    logger;
+
+if (!argv.s && !argv.silent) {
+    logger = {
+        /*eslint-disable*/
+        info: console.log,
+        /*eslint-enable*/
+        request: function (req, res, error) {
+            var date = new Date();
+            if (error) {
+                logger.info(
+                    '[%s] %s (%s) "%s %s" "%s"',
+                    date, res.statusCode.toString().red, res.statusMessage.red, req.method.red, req.url.red, req.headers['user-agent']
+                );
+            } else {
+                logger.info(
+                    '[%s] %s (%s) "%s %s" "%s"',
+                    date, res.statusCode, res.statusMessage, req.method.cyan, req.url.cyan, req.headers['user-agent']
+                );
+            }
+        }
+    };
+}
+
+httpServer.setStaticRoot(dir);
+httpServer.setLogger(logger);
+httpServer.startServer(port, mockRoutes, function() {
+    logger.info(['Start listening on port:'.yellow, (port + '').cyan].join(' '));
+    logger.info('Hit CTRL-C to stop the server');
+    if (argv.o) {
+        opener('http://localhost:' + port, { command: argv.o !== true ? argv.o : null });
+    }
+});
+
+process.on('SIGINT', function () {
+    logger.info('http-server stopped.'.red);
+    process.exit();
+});
+
+process.on('SIGTERM', function () {
+    logger.info('http-server stopped.'.red);
+    process.exit();
+});
