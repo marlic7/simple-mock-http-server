@@ -3,14 +3,40 @@
 ## Install
 
 ```bash
+# globally
 npm install -g simple-mock-http-server
+# or in project as dev dependencies
+npm install --save-dev simple-mock-http-server
 ```
 
 ## Usage
 
+From hand
+
 ```bash
 simple-mock-http-server -o -p 8080 -r mock-routes
 ```
+
+With NPM scripts
+
+```path
+package.json
+```
+
+```json
+...
+"scripts": {
+    "start": "./node_modules/.bin/simple-mock-http-server -o -p 8080 -r mock-routes",
+}
+...
+```
+
+```bash
+npm run start
+# or shorter (becouse of lifecycle script)
+npm start
+```
+
 
 ## Route files
 
