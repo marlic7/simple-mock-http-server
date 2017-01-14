@@ -4,7 +4,8 @@
 
 require('colors');
 
-const argv = require('minimist')(process.argv.slice(2)),
+const
+    argv = require('minimist')(process.argv.slice(2)),
     httpServer = require('../lib/simple-mock-http-server.js'),
     opener     = require('opener');
 
@@ -34,8 +35,10 @@ if (!argv.s && !argv.silent) {
     logger = {
         /*eslint-disable*/
         info: console.log,
+        error: console.error,
         /*eslint-enable*/
-        request: function (req, res, error) {
+        debug: () => {},
+        request: (req, res, error) => {
             var date = new Date();
             if (error) {
                 logger.info(
@@ -54,7 +57,7 @@ if (!argv.s && !argv.silent) {
 
 httpServer.setStaticRoot(dir);
 httpServer.setLogger(logger);
-httpServer.startServer(port, mockRoutes, function() {
+httpServer.startServer(port, mockRoutes, () => {
     logger.info(['Start listening on port:'.yellow, (port + '').cyan].join(' '));
     logger.info('Hit CTRL-C to stop the server');
     if (argv.o) {
@@ -62,12 +65,12 @@ httpServer.startServer(port, mockRoutes, function() {
     }
 });
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
     logger.info('http-server stopped.'.red);
     process.exit();
 });
 
-process.on('SIGTERM', function () {
+process.on('SIGTERM', () => {
     logger.info('http-server stopped.'.red);
     process.exit();
 });
