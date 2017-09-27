@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "./bin/simple-mock-http-server ./test -r ./test/mock-routes -o",
-    "start-debug": "devtool ./bin/simple-mock-http-server ./test -r ./test/mock-routes -o"
+    "start-debug": "devtool ./bin/simple-mock-http-server ./test -r ./test/mock-routes -o",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,9 @@
     "minimist": "^1.2.0",
     "opener": "^1.4.1",
     "require-reload": "^0.2.2",
-    "socket.io": "^1.4.8",
-    "watch": "^1.0.1"
-  }
+    "socket.io": "^2.0.2",
+    "watch": "^1.0.1",
+    "snyk": "^1.41.1"
+  },
+  "snyk": true
 }
