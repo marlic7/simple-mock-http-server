@@ -1,6 +1,6 @@
 {
   "name": "simple-mock-http-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple HTTP server with posibility to mock API (http and socket.io) and automatic reload routes on change route file",
   "main": "./lib/simple-mock-http-server.js",
   "bin": {
